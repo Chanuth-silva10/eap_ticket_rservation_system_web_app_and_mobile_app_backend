@@ -1,5 +1,6 @@
 using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
+
 namespace TicketRservationManager.Models
 {
 
@@ -11,7 +12,7 @@ namespace TicketRservationManager.Models
 
         public string FirstName { get; set; } = null!;
         public string LastName { get; set; } = null!;
-        public string MobileNumber { get; set; } = null!;
+        public string NIC { get; set; } = null!;
         public string Password { get; set; } = null!;
         public string UserType { get; set; } = null!;
 
