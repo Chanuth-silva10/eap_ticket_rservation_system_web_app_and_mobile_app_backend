@@ -5,7 +5,8 @@ namespace TicketReservationManager.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class UserManagerController:ControllerBase{
-        
+    public class UserManagerController : ControllerBase
+    {
+
     }
 }
