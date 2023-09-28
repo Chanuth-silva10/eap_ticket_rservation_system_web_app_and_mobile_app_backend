@@ -4,7 +4,7 @@ using MongoDB.Bson.Serialization.Attributes;
 namespace TicketReservationManager.Models
 {
 
-    public class UserModel
+    public class UserManagerModel
     {
         [BsonId]
         [BsonRepresentation(BsonType.ObjectId)]
