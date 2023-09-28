@@ -18,6 +18,14 @@ namespace TicketReservationManager.Services
 
         }
 
+        //Get All Users
+        public async Task<List<UserManagerModel>> GetAllAsync()
+        {
+            _loggerInfo.LogInformation("UserService - GetAllAsync()");
+            return await _userManagerCollection.Find(_ => true).ToListAsync();
+
+        }
+
         //create new user
         public async Task CreateAsync(UserManagerModel createUser)
         {
