@@ -1,7 +1,7 @@
 using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
 
-namespace TicketRservationManager.Models
+namespace TicketReservationManager.Models
 {
 
     public class UserModel

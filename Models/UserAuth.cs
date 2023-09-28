@@ -1,4 +1,4 @@
-namespace TicketRservationManager.Models
+namespace TicketReservationManager.Models
 {
 
     public class UserMAuth
