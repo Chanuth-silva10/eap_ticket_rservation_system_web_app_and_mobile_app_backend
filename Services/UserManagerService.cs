@@ -7,14 +7,22 @@ namespace TicketReservationManager.Services
     public class UserManagerService
     {
         private readonly IMongoCollection<UserManagerModel> _userManagerCollection;
-        private readonly ILogger _logger;
+        private readonly ILogger _loggerInfo;
 
-        public UserManagerService(IOptions<DBConnection> DBSettings, ILogger<UserManagerService> logger)
+        public UserManagerService(IOptions<DBConnection> DBSettings, ILogger<UserManagerService> loggerInfo)
         {
-            var mongoClient = new MongoClient(DBSettings.Value.URI);
-            var mongoDatabase = mongoClient.GetDatabase(DBSettings.Value.DBName);
-            _userManagerCollection = mongoDatabase.GetCollection<UserManagerModel>(DBSettings.Value.UsersCollection);
-            _logger = logger;
+            var DBClient = new MongoClient(DBSettings.Value.URI);
+            var ESDatabase = DBClient.GetDatabase(DBSettings.Value.DBName);
+            _userManagerCollection = ESDatabase.GetCollection<UserManagerModel>(DBSettings.Value.UsersCollection);
+            _loggerInfo = loggerInfo;
+
+        }
+
+        //create new user
+        public async Task CreateAsync(UserManagerModel createUser)
+        {
+            _loggerInfo.LogInformation("Start UserManagerService using CreateAsync()");
+            await _userManagerCollection.InsertOneAsync(createUser);
 
         }
     }
