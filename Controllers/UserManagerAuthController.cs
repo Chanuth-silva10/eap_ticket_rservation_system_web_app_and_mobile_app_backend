@@ -6,7 +6,7 @@ namespace TicketReservationManager.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class AuthenticationController:ControllerBase
+    public class UserManagerAuthController:ControllerBase
     {
         
 
@@ -14,7 +14,7 @@ namespace TicketReservationManager.Controllers
 
         private readonly ILogger _loggerInfo;
 
-        public AuthenticationController(UserManagerService userManagerService, ILogger<UserManagerController> loggerInfo)
+        public UserManagerAuthController(UserManagerService userManagerService, ILogger<UserManagerController> loggerInfo)
         {
             _userManagerService = userManagerService;
             _loggerInfo = loggerInfo;
