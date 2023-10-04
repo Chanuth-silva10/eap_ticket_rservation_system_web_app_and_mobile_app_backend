@@ -5,6 +5,6 @@ namespace TicketReservationManager.Models
         public string URI { get; set; } = null!;
         public string DBName { get; set; } = null!;
         public string UsersCollection { get; set; } = null!;
-
+        public string TrainsCollection { get; set; } = null!;
     }
 }
