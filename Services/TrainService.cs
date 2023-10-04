@@ -22,7 +22,7 @@ namespace TicketReservationManager.Services
         public async Task<List<TrainModel>> GetAllTrainsAsync()
         {
             _loggerInfo.LogInformation("TrainService getting all trains using GetAllTrainsAsync()");
-            return await _trainManagerCollection.Find(_ => true).ToListAsync();
+            return await _trainCollection.Find(_ => true).ToListAsync();
 
         }
 

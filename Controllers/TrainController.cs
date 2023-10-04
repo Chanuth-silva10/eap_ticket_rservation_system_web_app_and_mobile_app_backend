@@ -6,7 +6,7 @@ namespace TicketReservationManager.Controllers
 {
     [ApiController]
     [Route("api/v2/[controller]")]
-    public claass TrainController : ControllerBase
+    public class TrainController : ControllerBase
     {
         private readonly TrainService _trainService;
         private readonly ILogger _loggerInfo;
