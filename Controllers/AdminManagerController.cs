@@ -33,17 +33,17 @@ namespace TicketReservationManager.Controllers
         public async Task<ActionResult<AdminManagerModel>> GetById(string id)
         {
             _loggerInfo.LogInformation("AdminManagerController - GetById()");
-            var user = await _userManagerService.GetUserByIdAsync(id);
+            var admin = await _userManagerService.GetUserByIdAsync(id);
 
-            if (user is null)
+            if (admin is null)
             {
                 return NotFound();
             }
 
-            return user;
+            return admin;
         }
 
-        // Create user
+        // Create admin
         [HttpPost]
         public async Task<IActionResult> Post(AdminManagerModel createUser)
         {
@@ -53,7 +53,7 @@ namespace TicketReservationManager.Controllers
             return CreatedAtAction(nameof(GetUsers), new { id = createUser.Id }, createUser);
         }
 
-        // Update user
+        // Update admin
         [HttpPut("{id:length(24)}")]
         public async Task<IActionResult> Update(string id, AdminManagerModel updatedUser)
         {

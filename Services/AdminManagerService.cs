@@ -27,7 +27,7 @@ namespace TicketReservationManager.Services
         }
         
 
-        // create new user inside the admin side only
+        // create new admin inside the admin side only
         public async Task CreateUserAsync(AdminManagerModel createUser)
         {
             _loggerInfo.LogInformation("AdminManagerService using CreateAsync()");
@@ -38,7 +38,7 @@ namespace TicketReservationManager.Services
         // Get User By Id inside the admin side only
         public async Task<AdminManagerModel?> GetUserByIdAsync(String id)
         {
-            _loggerInfo.LogInformation("Getting user id AdminManagerService using GetByIdAsync()");
+            _loggerInfo.LogInformation("Getting admin id AdminManagerService using GetByIdAsync()");
             return await _userManagerCollection.Find(USER => USER.Id == id).FirstOrDefaultAsync();
 
         }
@@ -51,7 +51,7 @@ namespace TicketReservationManager.Services
 
         }
 
-        // Update user inside the admin side only
+        // Update admin inside the admin side only
         public async Task UpdateUserAsync(string id, AdminManagerModel updatedUser)
         {
             _loggerInfo.LogInformation("Update User AdminManagerService using UpdateUserAsync()");

@@ -11,6 +11,7 @@ var logger = LoggerFactory.Create(config =>
 builder.Services.Configure<DBConnection>(
     builder.Configuration.GetSection("MongoDB"));
 builder.Services.AddSingleton<AdminManagerService>();
+builder.Services.AddSingleton<TravelarManagerService>();
 
 builder.Services.AddControllers();
 
