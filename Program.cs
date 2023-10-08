@@ -10,7 +10,7 @@ var logger = LoggerFactory.Create(config =>
 
 builder.Services.Configure<DBConnection>(
     builder.Configuration.GetSection("MongoDB"));
-builder.Services.AddSingleton<UserManagerService>();
+builder.Services.AddSingleton<AdminManagerService>();
 
 builder.Services.AddControllers();
 

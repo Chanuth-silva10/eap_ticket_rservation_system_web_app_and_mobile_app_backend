@@ -6,13 +6,13 @@ namespace TicketReservationManager.Controllers
 {
     [ApiController]
     [Route("api/v2/[controller]")]
-    public class UserManagerController : ControllerBase
+    public class AdminManagerController : ControllerBase
     {
-        private readonly UserManagerService _userManagerService;
+        private readonly AdminManagerService _userManagerService;
         private readonly ILogger _loggerInfo;
 
 
-        public UserManagerController(UserManagerService userManagerService, ILogger<UserManagerController> loggerInfo)
+        public AdminManagerController(AdminManagerService userManagerService, ILogger<AdminManagerController> loggerInfo)
         {
             _userManagerService = userManagerService;
             _loggerInfo = loggerInfo;
@@ -21,18 +21,18 @@ namespace TicketReservationManager.Controllers
 
         // Get All Users
         [HttpGet]
-        public async Task<List<UserManagerModel>> GetUsers()
+        public async Task<List<AdminManagerModel>> GetUsers()
         {
-            _loggerInfo.LogInformation("UserManagerController => GetUsers()");
+            _loggerInfo.LogInformation("AdminManagerController => GetUsers()");
             return await _userManagerService.GetAllUsersAsync();
 
         }
 
         // Get User using Id
         [HttpGet("{id:length(24)}")]
-        public async Task<ActionResult<UserManagerModel>> GetById(string id)
+        public async Task<ActionResult<AdminManagerModel>> GetById(string id)
         {
-            _loggerInfo.LogInformation("UserManagerController - GetById()");
+            _loggerInfo.LogInformation("AdminManagerController - GetById()");
             var user = await _userManagerService.GetUserByIdAsync(id);
 
             if (user is null)
@@ -45,9 +45,9 @@ namespace TicketReservationManager.Controllers
 
         // Create user
         [HttpPost]
-        public async Task<IActionResult> Post(UserManagerModel createUser)
+        public async Task<IActionResult> Post(AdminManagerModel createUser)
         {
-            _loggerInfo.LogInformation("UserManagerController => Post()");
+            _loggerInfo.LogInformation("AdminManagerController => Post()");
             await _userManagerService.CreateUserAsync(createUser);
 
             return CreatedAtAction(nameof(GetUsers), new { id = createUser.Id }, createUser);
@@ -55,7 +55,7 @@ namespace TicketReservationManager.Controllers
 
         // Update user
         [HttpPut("{id:length(24)}")]
-        public async Task<IActionResult> Update(string id, UserManagerModel updatedUser)
+        public async Task<IActionResult> Update(string id, AdminManagerModel updatedUser)
         {
             _loggerInfo.LogInformation("UserController - Update()");
             var User = await _userManagerService.GetUserByIdAsync(id);
@@ -76,7 +76,7 @@ namespace TicketReservationManager.Controllers
         [HttpDelete("{id:length(24)}")]
         public async Task<IActionResult> Delete(string id)
         {
-            _loggerInfo.LogInformation("UserManagerController => Delete()");
+            _loggerInfo.LogInformation("AdminManagerController => Delete()");
             var User = await _userManagerService.GetUserByIdAsync(id);
 
             if (User is null)

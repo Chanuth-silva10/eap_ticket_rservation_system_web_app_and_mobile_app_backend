@@ -6,15 +6,15 @@ namespace TicketReservationManager.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class AuthenticationController:ControllerBase
+    public class AuthController:ControllerBase
     {
         
 
-        private readonly UserManagerService _userManagerService;
+        private readonly AdminManagerService _userManagerService;
 
         private readonly ILogger _loggerInfo;
 
-        public AuthenticationController(UserManagerService userManagerService, ILogger<UserManagerController> loggerInfo)
+        public AuthController(AdminManagerService userManagerService, ILogger<AdminManagerController> loggerInfo)
         {
             _userManagerService = userManagerService;
             _loggerInfo = loggerInfo;
@@ -23,7 +23,7 @@ namespace TicketReservationManager.Controllers
 
         // Authenticate user using NIC and Password
         [HttpPost]
-        public async Task<ActionResult<UserManagerModel>> Authenticate(UserManagerAuth usermanagerauth)
+        public async Task<ActionResult<AdminManagerModel>> Authenticate(AdminAuth usermanagerauth)
         {
             _loggerInfo.LogInformation("UserManagerAuthenticationController - Post()");
             var user = await _userManagerService.VerifyUserByNICAndPasswordAsync(usermanagerauth.NIC, usermanagerauth.Password);
