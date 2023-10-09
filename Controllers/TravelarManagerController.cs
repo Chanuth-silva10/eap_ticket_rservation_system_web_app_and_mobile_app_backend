@@ -48,6 +48,13 @@ namespace TicketReservationManager.Controllers
         {
             _loggerInfo.LogInformation("TravelarManagerController => Post()");
 
+            var Travelar = await _travelarManagerService.GetTravelarByNICAsync(createTravelar.NIC);
+
+            if (Travelar is not null)
+            {
+                return Problem("User Already Exists.");
+            }
+
             await _travelarManagerService.CreateTravelarAsync(createTravelar);
 
             return CreatedAtAction(nameof(GetTravelars), new { id = createTravelar.Id }, createTravelar);
