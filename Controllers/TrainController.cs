@@ -9,11 +9,13 @@ namespace TicketReservationManager.Controllers
     public class TrainController : ControllerBase
     {
         private readonly TrainService _trainManagerService;
+        private readonly TrainScheduleService _trainScheduleService;
         private readonly ILogger _loggerInfo;
 
-        public TrainController(TrainService trainManagerService, ILogger<TrainController> loggerInfo)
+        public TrainController(TrainService trainManagerService, TrainScheduleService trainScheduleService, ILogger<TrainController> loggerInfo)
         {
             _trainManagerService = trainManagerService;
+            _trainScheduleService = trainScheduleService;
             _loggerInfo = loggerInfo;
 
         }
@@ -78,6 +80,13 @@ namespace TicketReservationManager.Controllers
             _loggerInfo.LogInformation("TrainController => Delete()");
             var Train = await _trainManagerService.GetTrainByIdAsync(id);
 
+            var TrainSchedules = await _trainScheduleService.GetByTrainIdAsync(id);
+
+            if (TrainSchedules is not null)
+            {
+                return Problem("This Train already schedule.");
+            }
+
             if (Train is null)
             {
                 return NotFound();
@@ -85,7 +94,7 @@ namespace TicketReservationManager.Controllers
 
             await _trainManagerService.DeleteTrainAsync(id);
 
-            return NoContent();
+            return Problem("Deleted Train");
         }
     }
 }
