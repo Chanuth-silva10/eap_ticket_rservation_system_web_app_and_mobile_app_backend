@@ -29,7 +29,7 @@ namespace TicketReservationManager.Controllers
 
         }
 
-        // Get TrainSchedule using Id
+        // Get TrainSchedules using Id
         [HttpGet("{id:length(24)}")]
         public async Task<ActionResult<TrainSchedulesModel>> GetById(string id)
         {
@@ -47,17 +47,11 @@ namespace TicketReservationManager.Controllers
          //Get train schedule by Train Id
         [HttpGet]
         [Route("train/{id}")]
-        public async Task<ActionResult<TrainSchedulesModel>> GetByTrainId(string id)
+        public async Task<List<TrainSchedulesModel>> GetByTrainId(string id)
         {
             _loggerInfo.LogInformation("TrainSchduleController - GetByTrainId()");
-            var TrainSchedules = await _trainScheduleService.GetByTrainIdAsync(id);
+            return await _trainScheduleService.GetByTrainIdAsync(id);
 
-            if (TrainSchedules is null)
-            {
-                return NotFound();
-            }
-
-            return TrainSchedules;
         }
 
         // Create trainSchedule

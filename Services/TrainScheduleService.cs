@@ -36,10 +36,10 @@ namespace TicketReservationManager.Services
 
         //Get all train schedule by Train Id
 
-        public async Task<TrainSchedulesModel?> GetByTrainIdAsync(string id)
+        public async Task<List<TrainSchedulesModel>> GetByTrainIdAsync(string id)
         {
             _loggerInfo.LogInformation("TrainScheduleService - GetByTrainIdAsync()");
-            return await _trainScheduleManagerCollection.Find(TRAINSCHEDULE => TRAINSCHEDULE.TrainId == id).FirstOrDefaultAsync();
+            return await _trainScheduleManagerCollection.Find(TRAINSCHEDULE => TRAINSCHEDULE.TrainId == id).ToListAsync();
 
         }
 
