@@ -12,7 +12,7 @@ namespace TicketReservationManager.Models
         public string TrainId { get; set; } = null!;
         public string DepartureStation { get; set; } = null!;
         public string ArrivalStation { get; set; } = null!;
-        public DateTime StartDateTime { get; set; }
-        public DateTime ArrivalTime { get; set; }
+        public DateTime? StartDateTime { get; set; }
+        public DateTime? ArrivalTime { get; set; }
     }
 }

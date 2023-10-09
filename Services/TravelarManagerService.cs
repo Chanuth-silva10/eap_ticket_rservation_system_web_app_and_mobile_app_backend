@@ -54,8 +54,16 @@ namespace TicketReservationManager.Services
         // Update Travelar inside the Mobile side only
         public async Task UpdateTravelarAsync(string id, TravelarManagerModel updatedTravelar)
         {
-            _loggerInfo.LogInformation("Update User TravelarManagerService using UpdateUserAsync()");
+            _loggerInfo.LogInformation("Update TravelarManagerService using UpdateUserAsync()");
             await _travelarManagerCollection.ReplaceOneAsync(TRAVELAR => TRAVELAR.Id == id, updatedTravelar);
+
+        }
+
+        // Update Travelar account status
+        public async Task UpdateTravelarAccountStatusAsync(string id, TravelarManagerModel updatedTravelarAccountStatus)
+        {
+            _loggerInfo.LogInformation("Update TravelarManagerService using UpdateTravelarAccountStatusAsync()");
+            await _travelarManagerCollection.ReplaceOneAsync(TRAVELAR => TRAVELAR.Id == id, updatedTravelarAccountStatus);
 
         }
 

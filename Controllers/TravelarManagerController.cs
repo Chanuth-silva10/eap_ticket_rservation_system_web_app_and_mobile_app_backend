@@ -70,8 +70,26 @@ namespace TicketReservationManager.Controllers
 
             return NoContent();
         }
+        
+        // Activated travelar
+        [HttpPut]
+        [Route("updateTravelarStatus/{id}")]
+        public async Task<IActionResult> UpdateTravelarStatus(string id, TravelarManagerModel updatedTravelarStatus)
+        {
+            _loggerInfo.LogInformation("UpdateTravelarStatus - Update()");
+            var Travelar = await _travelarManagerService.GetTravelarByIdAsync(id);
+          
+            if (Travelar is null)
+            {
+                return NotFound();
+            }
 
-       
+            Travelar.IsActive = updatedTravelarStatus.IsActive;
+
+            await _travelarManagerService.UpdateTravelarAccountStatusAsync(id, Travelar);
+
+            return NoContent();
+        }
 
         // Delete Travelar
         [HttpDelete("{id:length(24)}")]
