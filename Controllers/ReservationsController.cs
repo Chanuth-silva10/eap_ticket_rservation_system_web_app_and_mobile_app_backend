@@ -52,10 +52,10 @@ namespace TicketReservationManager.Controllers
         [HttpPost]
         public async Task<IActionResult> Post(ReservationsModel createReservations)
         {
-            if (createReservations.ReservationDate < DateTime.Now.AddDays(1) || createReservations.ReservationDate > DateTime.Now.AddDays(30))
-            {
-                return BadRequest("Invalid reservation date.");
-            }
+            // if (createReservations.ReservationDate < DateTime.Now.AddDays(1) || createReservations.ReservationDate > DateTime.Now.AddDays(30))
+            // {
+            //     return BadRequest("Invalid reservation date.");
+            // }
 
             _loggerInfo.LogInformation("ReservationsController => Post()");
             await _reservationService.CreateTrainReservationAsync(createReservations);
