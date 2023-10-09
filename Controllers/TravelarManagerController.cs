@@ -48,7 +48,7 @@ namespace TicketReservationManager.Controllers
         {
             _loggerInfo.LogInformation("TravelarManagerController => Post()");
 
-            var Travelar = await _travelarManagerService.GetTravelarByNICAsync(createTravelar.NIC);
+            var Travelar = await _travelarManagerService.GetTravelarByNICAsync(createTravelar.NIC = "####");
 
             if (Travelar is not null)
             {
@@ -72,11 +72,12 @@ namespace TicketReservationManager.Controllers
                 return NotFound();
             }
 
+            updatedTravelar.Id = Travelar.Id;
             updatedTravelar.NIC = Travelar.NIC;
 
             await _travelarManagerService.UpdateTravelarAsync(nic, updatedTravelar);
 
-            return NoContent();
+            return Ok("Your account update successfully.");
         }
         
         // Activated travelar
@@ -92,11 +93,12 @@ namespace TicketReservationManager.Controllers
                 return NotFound();
             }
 
+            
             Travelar.IsActive = updatedTravelarStatus.IsActive;
 
             await _travelarManagerService.UpdateTravelarAccountStatusAsync(id, Travelar);
 
-            return NoContent();
+            return Ok("Update travelar role successfully.");
         }
 
         // Delete Travelar
@@ -113,7 +115,7 @@ namespace TicketReservationManager.Controllers
 
             await _travelarManagerService.DeleteTravelarAsync(nic);
 
-            return NoContent();
+            return Ok("Your account deleted successfully.");
         }
     }
 }

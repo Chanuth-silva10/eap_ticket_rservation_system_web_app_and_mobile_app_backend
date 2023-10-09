@@ -10,11 +10,11 @@ namespace TicketReservationManager.Controllers
     {
         private readonly ReservationService _reservationService;
         private readonly TravelarManagerService _travelarManagerService;
-         private readonly TrainService _trainService;
+        private readonly TrainService _trainService;
         private readonly TrainScheduleService _trainScheduleService;
         private readonly ILogger _loggerInfo;
 
-        public ReservationsController(ReservationService reservationService, TravelarManagerService travelarManagerService, TrainService trainService , TrainScheduleService trainScheduleService , ILogger<ReservationsController> loggerInfo)
+        public ReservationsController(ReservationService reservationService, TravelarManagerService travelarManagerService, TrainService trainService, TrainScheduleService trainScheduleService, ILogger<ReservationsController> loggerInfo)
         {
             _reservationService = reservationService;
             _travelarManagerService = travelarManagerService;
@@ -52,6 +52,11 @@ namespace TicketReservationManager.Controllers
         [HttpPost]
         public async Task<IActionResult> Post(ReservationsModel createReservations)
         {
+            if (createReservations.ReservationDate < DateTime.Now.AddDays(1) || createReservations.ReservationDate > DateTime.Now.AddDays(30))
+            {
+                return BadRequest("Invalid reservation date.");
+            }
+
             _loggerInfo.LogInformation("ReservationsController => Post()");
             await _reservationService.CreateTrainReservationAsync(createReservations);
 
@@ -64,10 +69,17 @@ namespace TicketReservationManager.Controllers
         {
             _loggerInfo.LogInformation("TainController - Update()");
             var TrainSchedule = await _reservationService.GetTrainReservationByIdAsync(id);
-            Console. WriteLine(TrainSchedule);
+
             if (TrainSchedule is null)
             {
                 return NotFound();
+            }
+
+            var daysUntilReservation = (TrainSchedule.ReservationDate - DateTime.Now).Days;
+
+            if (daysUntilReservation <= 5)
+            {
+                return BadRequest("Reservation cannot be updated less than 5 days before the reservation date.");
             }
 
             updatedReservation.Id = TrainSchedule.Id;
@@ -89,9 +101,16 @@ namespace TicketReservationManager.Controllers
                 return NotFound();
             }
 
+            var daysUntilReservation = (TrainSchedule.ReservationDate - DateTime.Now).Days;
+
+            if (daysUntilReservation <= 5)
+            {
+                return BadRequest("Reservation cannot be canceled less than 5 days before the reservation date.");
+            }
+
             await _reservationService.DeleteTrainReservationAsync(id);
 
-            return NoContent();
+            return Ok("Reservation canceled successfully.");
         }
     }
 }
