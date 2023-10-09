@@ -9,11 +9,17 @@ namespace TicketReservationManager.Controllers
     public class ReservationsController : ControllerBase
     {
         private readonly ReservationService _reservationService;
+        private readonly TravelarManagerService _travelarManagerService;
+         private readonly TrainService _trainService;
+        private readonly TrainScheduleService _trainScheduleService;
         private readonly ILogger _loggerInfo;
 
-        public ReservationsController(ReservationService reservationService, ILogger<ReservationsController> loggerInfo)
+        public ReservationsController(ReservationService reservationService, TravelarManagerService travelarManagerService, TrainService trainService , TrainScheduleService trainScheduleService , ILogger<ReservationsController> loggerInfo)
         {
             _reservationService = reservationService;
+            _travelarManagerService = travelarManagerService;
+            _trainService = trainService;
+            _trainScheduleService = trainScheduleService;
             _loggerInfo = loggerInfo;
 
         }

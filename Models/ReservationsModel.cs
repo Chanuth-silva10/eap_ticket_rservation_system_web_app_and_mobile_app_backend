@@ -14,8 +14,6 @@ namespace TicketReservationManager.Models
         public DateTime ReservationDate { get; set; }
         public bool Status { get; set; }
         public string Email { get; set; } = null!;
-        public DateTime Created_at { get; set; }
-        public DateTime Updated_at { get; set; }
     }
 }
 
