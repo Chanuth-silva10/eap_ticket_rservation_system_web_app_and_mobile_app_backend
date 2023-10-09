@@ -47,26 +47,27 @@ namespace TicketReservationManager.Controllers
         public async Task<IActionResult> Post(TravelarManagerModel createTravelar)
         {
             _loggerInfo.LogInformation("TravelarManagerController => Post()");
+
             await _travelarManagerService.CreateTravelarAsync(createTravelar);
 
             return CreatedAtAction(nameof(GetTravelars), new { id = createTravelar.Id }, createTravelar);
         }
 
         // Update travelar
-        [HttpPut("{id:length(24)}")]
-        public async Task<IActionResult> Update(string id, TravelarManagerModel updatedTravelar)
+        [HttpPut("{nic}")]
+        public async Task<IActionResult> Update(string nic, TravelarManagerModel updatedTravelar)
         {
             _loggerInfo.LogInformation("TRavelarController - Update()");
-            var Travelar = await _travelarManagerService.GetTravelarByIdAsync(id);
+            var Travelar = await _travelarManagerService.GetTravelarByNICAsync(nic);
             Console. WriteLine(Travelar);
             if (Travelar is null)
             {
                 return NotFound();
             }
 
-            updatedTravelar.Id = Travelar.Id;
+            updatedTravelar.NIC = Travelar.NIC;
 
-            await _travelarManagerService.UpdateTravelarAsync(id, updatedTravelar);
+            await _travelarManagerService.UpdateTravelarAsync(nic, updatedTravelar);
 
             return NoContent();
         }
@@ -92,18 +93,18 @@ namespace TicketReservationManager.Controllers
         }
 
         // Delete Travelar
-        [HttpDelete("{id:length(24)}")]
-        public async Task<IActionResult> Delete(string id)
+        [HttpDelete("{nic}")]
+        public async Task<IActionResult> Delete(string nic)
         {
             _loggerInfo.LogInformation("TravelarManagerController => Delete()");
-            var Travelar = await _travelarManagerService.GetTravelarByIdAsync(id);
+            var Travelar = await _travelarManagerService.GetTravelarByNICAsync(nic);
 
             if (Travelar is null)
             {
                 return NotFound();
             }
 
-            await _travelarManagerService.DeleteTravelarAsync(id);
+            await _travelarManagerService.DeleteTravelarAsync(nic);
 
             return NoContent();
         }
