@@ -43,6 +43,14 @@ namespace TicketReservationManager.Services
 
         }
 
+        // Get Travelar By NIC inside the Mobile side only
+        public async Task<TravelarManagerModel?> GetTravelarByNICAsync(String nic)
+        {
+            _loggerInfo.LogInformation("Getting Travelars id TravelarManagerService using GetByIdAsync()");
+            return await _travelarManagerCollection.Find(TRAVELAR => TRAVELAR.NIC == nic).FirstOrDefaultAsync();
+
+        }
+
         // Verify Travelar By NIC and Password inside the Mobile side only
         public async Task<TravelarManagerModel?> VerifyTravelarByNICAndPasswordAsync(String nic, String password)
         {
@@ -51,19 +59,27 @@ namespace TicketReservationManager.Services
 
         }
 
-        // Update Travelar inside the Mobile side only
-        public async Task UpdateTravelarAsync(string id, TravelarManagerModel updatedTravelar)
+        // Update Travelar using NIC inside the Mobile side only
+        public async Task UpdateTravelarAsync(string nic, TravelarManagerModel updatedTravelar)
         {
-            _loggerInfo.LogInformation("Update User TravelarManagerService using UpdateUserAsync()");
-            await _travelarManagerCollection.ReplaceOneAsync(TRAVELAR => TRAVELAR.Id == id, updatedTravelar);
+            _loggerInfo.LogInformation("Update TravelarManagerService using UpdateUserAsync()");
+            await _travelarManagerCollection.ReplaceOneAsync(TRAVELAR => TRAVELAR.NIC == nic, updatedTravelar);
 
         }
 
-        // Delete Travelar inside the Mobile side only
-        public async Task DeleteTravelarAsync(string id)
+        // Update Travelar account status
+        public async Task UpdateTravelarAccountStatusAsync(string id, TravelarManagerModel updatedTravelarAccountStatus)
+        {
+            _loggerInfo.LogInformation("Update TravelarManagerService using UpdateTravelarAccountStatusAsync()");
+            await _travelarManagerCollection.ReplaceOneAsync(TRAVELAR => TRAVELAR.Id == id, updatedTravelarAccountStatus);
+
+        }
+
+        // Delete Travelar using NIC inside the Mobile side only
+        public async Task DeleteTravelarAsync(string nic)
         {
             _loggerInfo.LogInformation("Deleting Travelar Manager Service using DeleteTravelarAsync()");
-            await _travelarManagerCollection.DeleteOneAsync(TRAVELAR => TRAVELAR.Id == id);
+            await _travelarManagerCollection.DeleteOneAsync(TRAVELAR => TRAVELAR.NIC == nic);
 
         }
     }
