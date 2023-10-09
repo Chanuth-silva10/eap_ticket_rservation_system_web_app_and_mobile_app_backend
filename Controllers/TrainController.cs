@@ -20,9 +20,9 @@ namespace TicketReservationManager.Controllers
 
         // Get All Trains
         [HttpGet]
-        public async Task<List<TrainModel>> GetAllTrainsAsync()
+        public async Task<List<TrainModel>> GetAllTrains()
         {
-            _loggerInfo.LogInformation("TrainController => GetAllTrainsAsync()");
+            _loggerInfo.LogInformation("TrainController => GetAllTrains()");
             return await _trainManagerService.GetAllTrainsAsync();
 
         }
@@ -49,7 +49,7 @@ namespace TicketReservationManager.Controllers
             _loggerInfo.LogInformation("TrainController => Post()");
             await _trainManagerService.CreateTrainAsync(createTrain);
 
-            return CreatedAtAction(nameof(GetAllTrainsAsync), new { id = createTrain.Id }, createTrain);
+            return CreatedAtAction(nameof(GetAllTrains), new { id = createTrain.Id }, createTrain);
         }
 
         // Update train

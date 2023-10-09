@@ -13,6 +13,8 @@ builder.Services.Configure<DBConnection>(
 builder.Services.AddSingleton<AdminManagerService>();
 builder.Services.AddSingleton<TravelarManagerService>();
 builder.Services.AddSingleton<TrainService>();
+builder.Services.AddSingleton<TrainScheduleService>();
+builder.Services.AddSingleton<ReservationService>();
 
 builder.Services.AddControllers();
 

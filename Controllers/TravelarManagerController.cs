@@ -71,6 +71,8 @@ namespace TicketReservationManager.Controllers
             return NoContent();
         }
 
+       
+
         // Delete Travelar
         [HttpDelete("{id:length(24)}")]
         public async Task<IActionResult> Delete(string id)
