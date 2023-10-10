@@ -80,11 +80,11 @@ namespace TicketReservationManager.Controllers
             _loggerInfo.LogInformation("TrainController => Delete()");
             var Train = await _trainManagerService.GetTrainByIdAsync(id);
 
-            var TrainSchedules = await _trainScheduleService.GetByTrainIdAsync(id);
+            int count = await _trainScheduleService.CheckTrainReservationCountAsync(id);
 
-            if (TrainSchedules is not null)
+            if (count >= 1)
             {
-                return Problem("This Train already schedule.");
+                return BadRequest("Thia train already scheduled");
             }
 
             if (Train is null)
