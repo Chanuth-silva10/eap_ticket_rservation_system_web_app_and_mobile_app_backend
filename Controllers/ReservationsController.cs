@@ -52,6 +52,15 @@ namespace TicketReservationManager.Controllers
         [HttpPost]
         public async Task<IActionResult> Post(ReservationsModel createReservations)
         {
+            
+            _loggerInfo.LogInformation("CheckTrainReservationsAsync => Count()");
+            int count = await _reservationService.CheckTrainReservationsAsync(createReservations.UserId);
+
+            if (count <= 4)
+            {
+                return BadRequest("Maximum 4 reservations allowed your acount.");
+            }
+
             // if (createReservations.ReservationDate < DateTime.Now.AddDays(1) || createReservations.ReservationDate > DateTime.Now.AddDays(30))
             // {
             //     return BadRequest("Invalid reservation date.");
