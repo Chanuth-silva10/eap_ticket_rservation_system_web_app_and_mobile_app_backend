@@ -43,6 +43,17 @@ namespace TicketReservationManager.Services
 
         }
 
+         // Get Train Schedule By Id 
+        public async Task<int> CheckTrainReservationCountAsync(String id)
+        {
+            _loggerInfo.LogInformation("Getting ReservationService using CheckTrainReservationCountAsync()");
+
+            int count = (int)await _trainScheduleManagerCollection.CountDocumentsAsync(TRAINSCHEDULE => TRAINSCHEDULE.TrainId == id);
+            Console.WriteLine(count);
+            return count;
+
+        }
+
         // Get Train Schedule By Id 
         public async Task<TrainSchedulesModel?> GetTrainScheduleByIdAsync(String id)
         {

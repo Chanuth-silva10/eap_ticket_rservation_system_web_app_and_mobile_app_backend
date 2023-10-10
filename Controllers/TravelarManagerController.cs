@@ -48,7 +48,12 @@ namespace TicketReservationManager.Controllers
         {
             _loggerInfo.LogInformation("TravelarManagerController => Post()");
 
-            var Travelar = await _travelarManagerService.GetTravelarByNICAsync(createTravelar.NIC = "####");
+            if (createTravelar.NIC == null)
+            {
+                return BadRequest("NIC cannot be null.");
+            }
+
+            var Travelar = await _travelarManagerService.GetTravelarByNICAsync(createTravelar.NIC);
 
             if (Travelar is not null)
             {
@@ -66,7 +71,7 @@ namespace TicketReservationManager.Controllers
         {
             _loggerInfo.LogInformation("TRavelarController - Update()");
             var Travelar = await _travelarManagerService.GetTravelarByNICAsync(nic);
-            Console. WriteLine(Travelar);
+            Console.WriteLine(Travelar);
             if (Travelar is null)
             {
                 return NotFound();
@@ -79,7 +84,7 @@ namespace TicketReservationManager.Controllers
 
             return Ok("Your account update successfully.");
         }
-        
+
         // Activated travelar
         [HttpPut]
         [Route("updateTravelarStatus/{id}")]
@@ -87,13 +92,13 @@ namespace TicketReservationManager.Controllers
         {
             _loggerInfo.LogInformation("UpdateTravelarStatus - Update()");
             var Travelar = await _travelarManagerService.GetTravelarByIdAsync(id);
-          
+
             if (Travelar is null)
             {
                 return NotFound();
             }
 
-            
+
             Travelar.IsActive = updatedTravelarStatus.IsActive;
 
             await _travelarManagerService.UpdateTravelarAccountStatusAsync(id, Travelar);
