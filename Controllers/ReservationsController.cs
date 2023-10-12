@@ -56,7 +56,7 @@ namespace TicketReservationManager.Controllers
             _loggerInfo.LogInformation("CheckTrainReservationsAsync => Count()");
             int count = await _reservationService.CheckTrainReservationsAsync(createReservations.UserId);
 
-            if (count <= 4)
+            if (count >= 4)
             {
                 return BadRequest("Maximum 4 reservations allowed your acount.");
             }
