@@ -56,7 +56,7 @@ namespace TicketReservationManager.Controllers
             _loggerInfo.LogInformation("CheckTrainReservationsAsync => Count()");
             int count = await _reservationService.CheckTrainReservationsAsync(createReservations.UserId);
 
-            if (count <= 4)
+            if (count >= 4)
             {
                 return BadRequest("Maximum 4 reservations allowed your acount.");
             }
@@ -86,7 +86,7 @@ namespace TicketReservationManager.Controllers
 
             var daysUntilReservation = (TrainSchedule.ReservationDate - DateTime.Now).Days;
 
-            if (daysUntilReservation <= 5)
+            if (daysUntilReservation >= 5)
             {
                 return BadRequest("Reservation cannot be updated less than 5 days before the reservation date.");
             }
@@ -112,7 +112,7 @@ namespace TicketReservationManager.Controllers
 
             var daysUntilReservation = (TrainSchedule.ReservationDate - DateTime.Now).Days;
 
-            if (daysUntilReservation <= 5)
+            if (daysUntilReservation >= 5)
             {
                 return BadRequest("Reservation cannot be canceled less than 5 days before the reservation date.");
             }
