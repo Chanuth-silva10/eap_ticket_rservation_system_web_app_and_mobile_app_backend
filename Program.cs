@@ -1,6 +1,7 @@
 using TicketReservationManager.Models;
 using TicketReservationManager.Services;
 
+var  MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
 var builder = WebApplication.CreateBuilder(args);
 
 var logger = LoggerFactory.Create(config =>
@@ -10,6 +11,15 @@ var logger = LoggerFactory.Create(config =>
 
 builder.Services.Configure<DBConnection>(
     builder.Configuration.GetSection("MongoDB"));
+    builder.Services.AddCors(options =>
+{
+    options.AddPolicy(name: MyAllowSpecificOrigins,
+                      policy  =>
+                      {
+                          policy.WithOrigins("http://localhost:3000").AllowAnyHeader()
+                                                  .AllowAnyMethod();;
+                      });
+});
 builder.Services.AddSingleton<AdminManagerService>();
 builder.Services.AddSingleton<TravelarManagerService>();
 builder.Services.AddSingleton<TrainService>();
@@ -29,6 +39,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+app.UseCors(MyAllowSpecificOrigins);
+app.UseHttpsRedirection();
 
 app.UseAuthorization();
 
