@@ -2,6 +2,9 @@
 
 Welcome to the EAP Ticket Reservation System Backend repository. This project provides the backend services required for the EAP Ticket Reservation System, supporting both web and mobile applications.
 
+# API Collection
+![Picture1](https://github.com/Chanuth-silva10/eap_ticket_rservation_system_web_app_and_mobile_app_backend/assets/80547770/c59c005d-e21a-456a-93f3-ef902978a423)
+
 ## Table of Contents
 
 - [Project Overview](#project-overview)
